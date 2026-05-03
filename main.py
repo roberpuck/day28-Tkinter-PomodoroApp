@@ -6,7 +6,7 @@ RED = "#e7305b"
 GREEN = "#9bdeac"
 YELLOW = "#f7f5dd"
 FONT_NAME = "Courier"
-WORK_MIN = 10
+WORK_MIN = 1
 SHORT_BREAK_MIN = 5
 LONG_BREAK_MIN = 20
 CHECK_MARK = '✔️'
@@ -17,10 +17,12 @@ timer = None
 # ---------------------------- TIMER RESET ------------------------------- #
 
 def reset_pomodoro():
+    global reps
     window.after_cancel(timer)
     timer_label.config(text='Timer')
     bg_canvas.itemconfig(timer_text,text='00:00')
     tick_label.config(text='')
+    reps = 0
 
 
 # ---------------------------- TIMER MECHANISM ------------------------------- #
@@ -29,11 +31,11 @@ def start_timer():
     global reps
     reps +=1
     print(reps)
-    work_sec = WORK_MIN
-    short_break_sec = SHORT_BREAK_MIN
-    long_break_sec = LONG_BREAK_MIN
+    work_sec = WORK_MIN * 60
+    short_break_sec = SHORT_BREAK_MIN * 60
+    long_break_sec = LONG_BREAK_MIN * 60
 
-    if reps%8 ==0:
+    if reps%8 == 0:
         timer_label.config(text='Break', fg=RED)
         start_countdown(long_break_sec)
 
